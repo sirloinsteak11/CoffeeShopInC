@@ -5,16 +5,20 @@
 // initial values
 double walletBalance = 10.00;
 
+// basis of all shop items, all shop items will have a name and price attached to them
 struct shopItem {
 	char name[15];
 	double price;
 };
 
+// this structure creates 7 items
 struct shopItem items[7];
 
+// arrays used to initialize the shop items
 char itemNames[7][10] = {"Coffee", "Croissant", "Tea", "Muffin", "Donut", "Pastry", "Water"};
 double itemPrices[7] = {0.50, 2.00, 1.00, 1.50, 1.25, 2.50, 0.00};
 
+// function declarations
 void initItems();
 void wallet();
 void purchaseItem(int itemNum);
@@ -22,12 +26,13 @@ void showPrices();
 
 int main() {
 	
+	// initialize items by assigning their initial values through itenNames and itemPrices
 	initItems();
 
+	// loops through the items and prints their name and price
 	for (int i = 0; i<=6; i++) {
 		printf("%d %s: $%.2f\n", i, items[i].name, items[i].price);
 	}
-
 
 	char option;
 	int desiredItem;
@@ -41,6 +46,8 @@ int main() {
 
 			printf("What would you like to purchase? enter the number corresponding to the item. for example, if you would like to buy coffee, press 0 and press enter...\n");
 			scanf(" %d", &desiredItem);
+
+			// checks if the number provided is a valid index
 			if (desiredItem >= 0 && desiredItem <= 6) {
 				purchaseItem(desiredItem);
 			} else {
@@ -49,10 +56,12 @@ int main() {
 
 		} else if(option == 'w') {
 
+			// shows wallet balance
 			wallet();
 
 		} else if(option == 'q') {
 
+			// quit
 			break;
 
 		} else if(option == 's') {
@@ -67,6 +76,8 @@ int main() {
 	return 0;
 }
 
+// function definitions
+
 void initItems() {
 	for (int i = 0; i<=6; i++) {
 		strcpy(items[i].name, itemNames[i]);
@@ -79,6 +90,7 @@ void wallet() {
 }
 
 void purchaseItem(int itemNum) {
+	// used to measure execution time
 	clock_t start, end;
 	start = clock();
 
@@ -157,6 +169,7 @@ void purchaseItem(int itemNum) {
 			printf("that item does not exist!");
 	}
 
+	// returns the amount of time it took to execute this entire code block
 	end = clock();
 	double duration = ((double)end - start)/CLOCKS_PER_SEC;
 	printf("Purchased item or did not in %f seconds!\n", duration);
